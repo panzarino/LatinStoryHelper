@@ -10,6 +10,6 @@ $("#searchform").submit(function(event) {
     getting.done(function(data){
         // replace page content
         $("body").removeClass("loading");
-        $("#output").text(data);
+        $("#output").html(data);
     });
 });
