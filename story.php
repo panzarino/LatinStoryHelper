@@ -23,7 +23,9 @@ foreach ($content as $word => $info){
     $xml = simplexml_load_string($info);
     $dom = new DOMDocument();
     $dom->loadHTML($xml->query->pages->page->extract[0]);
-    $html = $dom->getElementsByTagName('span');
+    $html_title = $dom->getElementById('Latin');
+    $html = $html_title->parentNode;
+    print_r($html);
 }
 
 // output the data
