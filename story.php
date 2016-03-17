@@ -16,7 +16,7 @@ foreach ($words as $word){
     
 }
 
-
-foreach ($content as $x){
-    //parse the array        
+foreach ($content as $word => $info){
+    //parse the array      
+    
 }
