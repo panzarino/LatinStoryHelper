@@ -4,15 +4,19 @@ $story = $_GET['story'];
 
 $story = strip_tags($story);
 
-$array = explode(" ", $story);
+$words = explode(" ", $story);
 
-$content = [];
+$content = array();
 
-foreach ($array as $x){
-    $page = file_get_contents("https://en.wiktionary.org/w/api.php?format=xml&action=query&prop=extracts&titles=".$x."&redirects=true&continue");
-    array_push($content, $page);
+foreach ($words as $word){
+    if (!(array_key_exists($word, $content))){
+        $page = file_get_contents("https://en.wiktionary.org/w/api.php?format=xml&action=query&prop=extracts&titles=".$word."&redirects=true&continue");
+        $content[$word] = $page;
+    }
+    
 }
 
+
 foreach ($content as $x){
-    
+        
 }
