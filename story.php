@@ -13,7 +13,6 @@ foreach ($array as $x){
     array_push($content, $page);
 }
 
-foreach($content as $x){
-    echo $x." ";
+foreach ($content as $x){
+    
 }
-                
