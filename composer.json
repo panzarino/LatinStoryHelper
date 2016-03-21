@@ -1,0 +1,13 @@
+{
+    "name": "jakesyl/latinhelper",
+    "authors": [
+        {
+            "name": "Jake",
+            "email": "jakesyl@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "electrolinux/phpquery": "^0.9.6"
+    }
+}
