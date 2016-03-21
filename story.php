@@ -1,4 +1,5 @@
 <?php
+require(__DIR__ . '/vendor/autoload.php');
 
 $story = $_GET['story'];
 
@@ -21,11 +22,7 @@ $parsed = array();
 foreach ($content as $word => $info){
     //parse the array
     $xml = simplexml_load_string($info);
-    $dom = new DOMDocument();
-    $dom->loadHTML($xml->query->pages->page->extract[0]);
-    $html_title = $dom->getElementById('Latin');
-    $html = $html_title->parentNode;
-    print_r($html);
+    $dom = phpQuery::newDocumentHTML($xml->query->pages->page->extract[0]);
 }
 
 // output the data
