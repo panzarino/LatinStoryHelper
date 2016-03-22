@@ -14,7 +14,6 @@ foreach ($words as $word){
         $page = file_get_contents("https://en.wiktionary.org/w/api.php?format=xml&action=query&prop=extracts&titles=".$word."&redirects=true&continue"); //get the page from the wiktionary api
         $content[$word] = $page;
     }
-    
 }
 
 $parsed = array();
@@ -23,9 +22,13 @@ foreach ($content as $word => $info){
     //parse the array
     $xml = simplexml_load_string($info);
     $dom = phpQuery::newDocumentHTML($xml->query->pages->page->extract[0]);
+    $parsed[$word] = $dom->document->textContent;
 }
 
 // output the data
+echo '<ul class="list-inline">';
 foreach ($words as $x){
-    echo $parsed[$x];
+    echo '<li><span data-toggle="tooltip" data-placement="top" title="'.$parsed[$x].'">'.$x.'</span></li> ';
 }
+
+echo '</ul><script>$(document).ready(function(){$(\'[data-toggle=\"tooltip\"]\').tooltip();});</script>';
