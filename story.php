@@ -16,7 +16,11 @@ foreach ($words as $word){
     }
 }
 
+// hold the parsed data
 $parsed = array();
+
+// hold the highlight colors
+$highlight = array();
 
 foreach ($content as $word => $info){
     //parse the array
@@ -25,7 +29,9 @@ foreach ($content as $word => $info){
     foreach(explode("<hr>", $html) as $language){
         $dom = phpQuery::newDocumentHTML($language);
         if ((strpos($dom->html(), '<span id="Latin">'))!=False){
-            $parsed[$word] = $dom->text();
+            $text = $dom->document->textContent;
+            $text = str_replace("Latin", "", $text);
+            $parsed[$word] = $text;
         }
     }
     //echo $dom->html();
