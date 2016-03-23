@@ -21,8 +21,16 @@ $parsed = array();
 foreach ($content as $word => $info){
     //parse the array
     $xml = simplexml_load_string($info);
-    $dom = phpQuery::newDocumentHTML($xml->query->pages->page->extract[0]);
-    $parsed[$word] = $dom->document->textContent;
+    $html =  $xml->query->pages->page->extract[0];
+    foreach(explode("<hr>", $html) as $language){
+            $dom = phpQuery::newDocumentHTML($language);
+            if ((strpos($dom->html(), '<span id="Latin">'))!=False){
+                $parsed[$word] = $dom->text();
+            }
+    }
+    //echo $dom->html();
+    //print_r($list);
+    //$parsed[$word] = $dom->document->textContent;
 }
 
 // output the data
