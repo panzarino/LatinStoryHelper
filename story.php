@@ -11,7 +11,8 @@ $content = array(); //Associative array representing what wiktionary returns
 
 foreach ($words as $word){ 
     if (!(array_key_exists($word, $content))){ //make sure key is not already in dictionary.
-        $page = file_get_contents("https://en.wiktionary.org/w/api.php?format=xml&action=query&prop=extracts&titles=".$word."&redirects=true&continue"); //get the page from the wiktionary api
+        $query = preg_replace('#[^a-zA-Z]#', '', $word);
+        $page = file_get_contents("https://en.wiktionary.org/w/api.php?format=xml&action=query&prop=extracts&titles=".$query."&redirects=true&continue"); //get the page from the wiktionary api
         $content[$word] = $page;
     }
 }
@@ -28,10 +29,23 @@ foreach ($content as $word => $info){
     $html =  $xml->query->pages->page->extract[0];
     foreach(explode("<hr>", $html) as $language){
         $dom = phpQuery::newDocumentHTML($language);
-        if ((strpos($dom->html(), '<span id="Latin">'))!=False){
+        if ((strpos($dom->html(), '<span id="Latin">'))!=false){
             $text = $dom->document->textContent;
             $text = str_replace("Latin", "", $text);
+            $text = str_replace("Etymology", "", $text);
             $parsed[$word] = $text;
+            if ((strpos($text, 'Participle'))!=false){
+                $highlight[$word] = "yellow";
+            }
+            elseif ((strpos($text, 'infinitive'))!=false && (strpos($text, 'Pronunciation'))==false){
+                $highlight[$word] = "green";
+            }
+            elseif ((strpos($text, 'Subjunctive'))!=false){
+                $highlight[$word] = "blue";
+            }
+            elseif ((strpos($text, 'Verb'))!=false){
+                $highlight[$word] = "orange";
+            }
         }
     }
     //echo $dom->html();
@@ -42,7 +56,12 @@ foreach ($content as $word => $info){
 // output the data
 echo '<ul class="list-inline">';
 foreach ($words as $x){
-    echo '<li><span data-toggle="tooltip" data-placement="top" title="'.$parsed[$x].'">'.$x.'</span></li> ';
+    if (isset($highlight[$x])){
+        echo '<li><span class="highlight-'.$highlight[$x].'" data-toggle="tooltip" data-placement="top" title="'.$parsed[$x].'">'.$x.'</span></li> ';
+    }
+    else {
+        echo '<li><span data-toggle="tooltip" data-placement="top" title="'.$parsed[$x].'">'.$x.'</span></li> ';
+    }
 }
 
 echo '</ul><script>$(document).ready(function(){$(\'[data-toggle=\"tooltip\"]\').tooltip();});</script>';
