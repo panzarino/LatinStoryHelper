@@ -34,16 +34,16 @@ foreach ($content as $word => $info){
             $text = str_replace("Latin", "", $text);
             $text = str_replace("Etymology", "", $text);
             $parsed[$word] = $text;
-            if ((strpos($text, 'Participle'))!=false){
+            if ((strpos($text, 'Participle')!=false) || (strpos($text, 'participle')!=false)){
                 $highlight[$word] = "yellow";
             }
             elseif ((strpos($text, 'infinitive'))!=false && (strpos($text, 'Pronunciation'))==false){
                 $highlight[$word] = "green";
             }
-            elseif ((strpos($text, 'Subjunctive'))!=false){
+            elseif ((strpos($text, 'Subjunctive'))!=false || (strpos($text, 'subjunctive')!=false)){
                 $highlight[$word] = "blue";
             }
-            elseif ((strpos($text, 'Verb'))!=false){
+            elseif ((strpos($text, 'Verb'))!=false || (strpos($text, 'verb')!=false)){
                 $highlight[$word] = "orange";
             }
         }
