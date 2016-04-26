@@ -35,4 +35,6 @@ foreach($matches as $match){
     $i++;
     
 }
+$text = str_replace("#1", "", $text);
+$text = str_replace("Definitions:", "<strong>Definitions:</strong>", $text);
 echo $text;
