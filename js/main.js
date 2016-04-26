@@ -26,6 +26,6 @@ $("#dictionary-form").submit(function(event) {
     getting.done(function(data){
         // replace page content
         $("body").removeClass("loading");
-        $("#dictionary-output").text(data);
+        $("#dictionary-output").html(data);
     });
 });
