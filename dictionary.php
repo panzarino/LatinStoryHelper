@@ -20,7 +20,7 @@ function getElementsByClass(&$parentNode, $tagName, $className) {
     return $nodes;
 }
 $data = $_GET['word'];
-$page = file_get_contents("http://latin-dictionary.net/search/latin/" . $data);
+$page = file_get_contents("http://latin-dictionary.net/search/latin/$data");
 
 $dom = phpQuery::newDocumentHTML($page);
 $matches = $dom->find('.entry');
