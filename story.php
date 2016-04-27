@@ -11,7 +11,7 @@ $content = array(); //Associative array representing what wiktionary returns
 
 foreach ($words as $word){ 
     if (!(array_key_exists($word, $content))){ //make sure key is not already in dictionary.
-        $query = preg_replace('#[^a-zA-Z]#', '', $word);
+        $query = strtolower(preg_replace('#[^a-zA-Z]#', '', $word));
         $page = file_get_contents("https://en.wiktionary.org/w/api.php?format=xml&action=query&prop=extracts&titles=".$query."&redirects=true&continue"); //get the page from the wiktionary api
         $content[$word] = $page;
     }
