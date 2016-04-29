@@ -49,9 +49,6 @@ foreach ($content as $word => $info){
             }
         }
     }
-    //echo $dom->html();
-    //print_r($list);
-    //$parsed[$word] = $dom->document->textContent;
 }
 
 // output the data
