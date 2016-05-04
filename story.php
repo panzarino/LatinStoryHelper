@@ -38,7 +38,7 @@ foreach ($content as $word => $info){
             if (strpos($compare, 'participle')!=false){
                 $highlight[$word] = "yellow";
             }
-            elseif (strpos($compare, 'infinitive')!=false && !strpos($compare, 'pronunciation')){
+            elseif (strpos($compare, 'infinitive')!=false && !strpos($compare, 'conjugation')){
                 $highlight[$word] = "green";
             }
             elseif (strpos($compare, 'subjunctive')!=false){
